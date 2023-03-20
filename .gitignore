@@ -1,4 +1,4 @@
-#Mi estructura será carpeta, práctica, teoría y lo que esté afuera será git 
+#Mi estructura será carpeta: práctica y teoría y lo que esté afuera será git 
 
 *.exe
 /Practica
