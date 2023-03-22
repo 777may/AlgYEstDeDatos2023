@@ -13,9 +13,12 @@
 LISTA crearLista();
 int esListaVacia(LISTA L);
 void mostrar(LISTA L);
-void primerElemento(LISTA L);
+tipo primerElemento(LISTA L);
 LISTA insertar(LISTA L, tipo datoNodo);
 LISTA borrar(LISTA L);
+int longitud(LISTA L);
+int pertenece(LISTA L, tipo dato);
+LISTA borrarUltimo(LISTA L);
 
 
 /////////
@@ -59,14 +62,9 @@ void mostrar(LISTA L){
     };
 }
 // // // D
-void primerElemento(LISTA L){
+tipo primerElemento(LISTA L){
     if (!esListaVacia(L)){
-        if (sizeof(tipo) == sizeof(int)){
-            printf("%d \n", L->dato);
-        } else if (sizeof(tipo) == sizeof(char))
-        {
-            printf("%s \n", L->dato);
-        }
+        return L->dato;
     }else{
         printf("La lista está vacia\n");
     };
@@ -91,8 +89,36 @@ LISTA borrar(LISTA L){
     }else{
         printf("La lista está vacia\n");
     };
+    return L;
 }
 // // // G
-
+int longitud(LISTA L){
+    int cant = 0;
+    while (!esListaVacia(L)){
+        cant ++;
+        L = L->siguiente;
+    }
+    return cant;
+}
 // // // H
+int pertenece(LISTA L, tipo datoBuscado){
+    int valor = 0;
+    while (!esListaVacia(L) && valor == 0){
+        if (L->dato == datoBuscado){
+            valor = 1;
+        }
+    }
+    return valor;
+}
+
 // // // I
+LISTA borrarUltimo(LISTA L){
+    LISTA previo;
+    while (!esListaVacia(L)){
+        previo = L;
+        L = L->siguiente;
+    }
+    free(L);
+    return previo;
+}
+
