@@ -1,0 +1,33 @@
+#Notación O grande
+
+-O(1) complejidad ctt no varía con tama entrada
+-O(log n) -la q mas aparece es base 2- es bueno
+-O(n) lineal -doble de datos demora doble de tiempo-
+-O(n log n) 
+-O(n^2) cuadrática -doble de datos demora 4 veces mas- (n filas x n columnas cuesta n^2)
+-O(n^3) cubica -doble de datos demora 8 veces mas-
+-O(n^a) polinomial
+-O(2^n) exponencial
+-O(c^n) exponencial, c >= 2
+-O(n!) factorial
+
+##programacion secuencial imperativa (entrada y salida en cintas)
+
+##reglas grales para medir el tiempo
+    -ignoradas
+    -O(1)
+    -secuencia por regla de la suma es la que más crece, ej: O(n) + O(n^2) +  O(log2n) =O(n^2) que es el mayor tiempo encontrado
+    -seleccion
+    -iteracion n° fijo de veces
+
+
+
+
+
+    en for las repeticiones son (lim sup - lim inf) +1
+
+
+
+
+
+

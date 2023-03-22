@@ -20,6 +20,9 @@ int longitud(LISTA L);
 int pertenece(LISTA L, tipo dato);
 LISTA borrarUltimo(LISTA L);
 
+// // // // 3
+int iguales(LISTA A, LISTA B);
+
 
 /////////
 void main(){
@@ -122,3 +125,24 @@ LISTA borrarUltimo(LISTA L){
     return previo;
 }
 
+// // // // 3
+int iguales(LISTA A, LISTA B){
+    if(longitud(A) == longitud(B)){
+        int valor = 1;
+        while (!esListaVacia(A) && valor == 1){
+            if (primerElemento(A) != primerElemento(B)){
+                valor == 0;
+            }
+            A = borrar(A);
+            B = borrar(B);
+        }  
+        return valor;
+    }else{
+        return 0;
+    }
+    for (int i = 434; i < 434+999; i++)
+    {
+        /* code */
+    }
+    
+}
