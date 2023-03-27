@@ -1,11 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 //    1
-    typedef int tipo;
-
     struct Nodo{
-        tipo dato;
-        LISTA* siguiente;
+        int dato;
+        struct Nodo* siguiente;
     }; 
     typedef struct Nodo* LISTA;
 
@@ -13,11 +11,11 @@
 LISTA crearLista();
 int esListaVacia(LISTA L);
 void mostrar(LISTA L);
-tipo primerElemento(LISTA L);
-LISTA insertar(LISTA L, tipo datoNodo);
+int primerElemento(LISTA L);
+LISTA insertar(LISTA L, int datoNodo);
 LISTA borrar(LISTA L);
 int longitud(LISTA L);
-int pertenece(LISTA L, tipo dato);
+int pertenece(LISTA L, int dato);
 LISTA borrarUltimo(LISTA L);
 
 // // // // 3
@@ -26,17 +24,84 @@ int iguales(LISTA A, LISTA B);
 
 /////////
 void main(){
-
-    // LISTA A = crearLista();
+// // // // // 4
+    LISTA A = crearLista();
+    LISTA B = crearLista();
+    LISTA C = crearLista();
+    LISTA D = crearLista();//vacia
+    LISTA E = crearLista();
     
-    // printf("%d\n", esListaVacia(A));
-    // mostrar(A);
+    A = insertar(A, 7); // a = c
+    B = insertar(B, 4);
+    B = insertar(B, 5);
+    C = insertar(C, 7);
+    E = insertar(E, 6);
+    E = insertar(E, 3);
+    E = insertar(E, 9);
 
-    // LISTA B;
-    // A = &B;
-    // A->dato = 13;
-    // A->siguiente = crearLista();
-    // mostrar(A);
+    if (esListaVacia(A)){
+        printf("A esta vacia\n");
+    }else if(esListaVacia(B)){
+        printf("B esta vacia\n");
+    }else if (esListaVacia(C)){
+        printf("C esta vacia\n");
+    }else if (esListaVacia(D)){
+        printf("D esta vacia\n");
+    }else if (esListaVacia(E)){
+        printf("E esta vacia\n");
+    }
+    
+    mostrar(A);
+    mostrar(B);
+    mostrar(C);
+    mostrar(D);
+
+    printf("Primer elemento: B: %d\n", primerElemento(B));
+    
+    printf("Pertenece a B el 5: ");
+    if (pertenece(B, 5))
+    {
+        printf("si\n");
+    }else{
+        printf("no\n");
+    }
+    
+    B = borrar(B);
+    printf("Luego de borrar: Longitud B = %d \n",longitud(B));
+
+    printf("Pertenece a B el 5: ");
+    if (pertenece(B, 5))
+    {
+        printf("si\n");
+    }else{
+        printf("no\n");
+    }
+    printf("Mostrar E:\n");
+    mostrar(E);
+    printf("Antes de borrarUltimo: Longitud E = %d \n",longitud(E));
+    E = borrarUltimo(E);
+    printf("Luego de borrarUltimo: Longitud E = %d \n",longitud(E));
+    mostrar(E);
+
+    if (iguales(A,C))
+    {
+        printf("¡Son iguales!");
+    }
+    if (iguales(E,B))
+    {
+        printf("algo esta mal");
+    }
+    
+    C = borrarUltimo(C);
+        if (iguales(A,C))
+    {
+        printf("¡Son iguales!");
+    }
+    if (iguales(E,B))
+    {
+        printf("algo esta mal");
+    }
+    
 }
 /////////
 // // 2
@@ -50,36 +115,33 @@ int esListaVacia( LISTA L){
 }
 // // // C
 void mostrar(LISTA L){
-    if (!esListaVacia(L)){
-        while (!esListaVacia(L)){
-            if (sizeof(tipo) == sizeof(int)){
-                printf("%d \n", L->dato);
-            } else if (sizeof(tipo) == sizeof(char))
-            {
-                printf("%s \n", L->dato);
-            }
-            L = L->siguiente;
-        }
-    }else{
-        printf("La lista está vacia\n");
+    if (esListaVacia(L)){
+        printf("La lista esta vacia\n");
     };
+    while (!esListaVacia(L)){
+        printf("%d \n", L->dato);
+        L = L->siguiente;
+    } ;
+    printf("\n");
 }
 // // // D
-tipo primerElemento(LISTA L){
+int primerElemento(LISTA L){
     if (!esListaVacia(L)){
         return L->dato;
     }else{
         printf("La lista está vacia\n");
+        return 0;
     };
 }
 // // // E
-LISTA insertar(LISTA L, tipo datoNodo){
+LISTA insertar(LISTA L, int datoNodo){
     LISTA Nuevo;
-    Nuevo = malloc(sizeof(LISTA));
+    Nuevo = (LISTA)malloc(sizeof(LISTA));
     Nuevo->dato = datoNodo;
     Nuevo->siguiente = L; 
     L = Nuevo;
     return L;
+    // return Nuevo;
 }
 
 // // // F
@@ -104,45 +166,47 @@ int longitud(LISTA L){
     return cant;
 }
 // // // H
-int pertenece(LISTA L, tipo datoBuscado){
-    int valor = 0;
-    while (!esListaVacia(L) && valor == 0){
+int pertenece(LISTA L, int datoBuscado){
+    while (!esListaVacia(L)){
         if (L->dato == datoBuscado){
-            valor = 1;
+            return 1;
         }
+        L = L->siguiente;
     }
-    return valor;
+    return 0;
 }
 
 // // // I
 LISTA borrarUltimo(LISTA L){
-    LISTA previo;
-    while (!esListaVacia(L)){
-        previo = L;
-        L = L->siguiente;
+    if (esListaVacia(L)){
+        return NULL;
     }
-    free(L);
-    return previo;
+
+    LISTA previo, ultimo;
+    ultimo = L;
+    while (!esListaVacia(ultimo->siguiente)){
+        previo = ultimo;
+        ultimo = ultimo->siguiente;
+    }
+    previo->siguiente= NULL;
+    free(ultimo);
+    return L;
 }
 
 // // // // 3
+//dretorne verdadero si los contenidos de los nodos de las listas son iguales.
 int iguales(LISTA A, LISTA B){
-    if(longitud(A) == longitud(B)){
-        int valor = 1;
-        while (!esListaVacia(A) && valor == 1){
-            if (primerElemento(A) != primerElemento(B)){
-                valor == 0;
+    if(longitud(A) == longitud(B) && longitud(A)>0){
+        do{
+            if (primerElemento(A)!= primerElemento(B)){
+                return 0;
             }
             A = borrar(A);
-            B = borrar(B);
-        }  
-        return valor;
+            B = borrar(B); 
+        } while (!esListaVacia(A));
+        return 1;
     }else{
         return 0;
-    }
-    for (int i = 434; i < 434+999; i++)
-    {
-        /* code */
     }
     
 }
