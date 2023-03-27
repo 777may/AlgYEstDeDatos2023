@@ -178,19 +178,27 @@ int pertenece(LISTA L, int datoBuscado){
 
 // // // I
 LISTA borrarUltimo(LISTA L){
-    if (esListaVacia(L)){
+    switch (longitud(L))
+    {
+    case 0:
+        return L;
+        break;
+    case 1:
+        free(L);
         return NULL;
+        break;
+    default:
+        LISTA previo = L, ultimo=L->siguiente;
+        while (ultimo->siguiente!=NULL)
+        {
+            previo = ultimo;
+            ultimo = previo->siguiente;
+        }
+        free(ultimo);
+        previo->siguiente = NULL;
+        return L;
+        break;
     }
-
-    LISTA previo, ultimo;
-    ultimo = L;
-    while (!esListaVacia(ultimo->siguiente)){
-        previo = ultimo;
-        ultimo = ultimo->siguiente;
-    }
-    previo->siguiente= NULL;
-    free(ultimo);
-    return L;
 }
 
 // // // // 3

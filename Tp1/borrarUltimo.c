@@ -22,7 +22,7 @@ void main(){
     LISTA A = crearLista();
     A = insertar(A, 2);
     A = insertar(A, 4);
-    // A = insertar(A, 5);
+    A = insertar(A, 5);
     mostrar(A);
     A = borrarUltimo(A);
     mostrar(A);
@@ -84,12 +84,14 @@ LISTA borrarUltimo(LISTA L){
         return NULL;
         break;
     default:
-        LISTA previo, ultimo;
-        while (L->siguiente!=NULL)
+        LISTA previo = L, ultimo=L->siguiente;
+        while (ultimo->siguiente!=NULL)
         {
-            /* code */
+            previo = ultimo;
+            ultimo = previo->siguiente;
         }
-        
+        free(ultimo);
+        previo->siguiente = NULL;
         return L;
         break;
     }
