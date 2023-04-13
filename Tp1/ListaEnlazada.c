@@ -85,11 +85,11 @@ void main(){
 
     if (iguales(A,C))
     {
-        printf("¡Son iguales!");
+        printf("¡A y C son iguales!");
     }
     if (iguales(E,B))
     {
-        printf("algo esta mal");
+        printf("A y C son distintos");
     }
     
     C = borrarUltimo(C);
@@ -116,10 +116,10 @@ int esListaVacia( LISTA L){
 // // // C
 void mostrar(LISTA L){
     if (esListaVacia(L)){
-        printf("La lista esta vacia\n");
+        printf("La lista esta vacia");
     };
     while (!esListaVacia(L)){
-        printf("%d \n", L->dato);
+        printf("%d  ", L->dato);
         L = L->siguiente;
     } ;
     printf("\n");
@@ -129,7 +129,7 @@ int primerElemento(LISTA L){
     if (!esListaVacia(L)){
         return L->dato;
     }else{
-        printf("La lista está vacia\n");
+        // printf("La lista está vacia\n");
         return 0;
     };
 }
@@ -178,6 +178,7 @@ int pertenece(LISTA L, int datoBuscado){
 
 // // // I
 LISTA borrarUltimo(LISTA L){
+    LISTA previo = L, ultimo=L->siguiente;
     switch (longitud(L))
     {
     case 0:
@@ -188,7 +189,6 @@ LISTA borrarUltimo(LISTA L){
         return NULL;
         break;
     default:
-        LISTA previo = L, ultimo=L->siguiente;
         while (ultimo->siguiente!=NULL)
         {
             previo = ultimo;

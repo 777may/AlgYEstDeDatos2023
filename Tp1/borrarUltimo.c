@@ -26,6 +26,8 @@ void main(){
     mostrar(A);
     A = borrarUltimo(A);
     mostrar(A);
+    A = borrarUltimo(A);
+    mostrar(A);
 
 
 
@@ -74,6 +76,7 @@ int longitud(LISTA L){
 
 // // // I
 LISTA borrarUltimo(LISTA L){
+    LISTA previo = L, ultimo=L->siguiente;
     switch (longitud(L))
     {
     case 0:
@@ -84,7 +87,6 @@ LISTA borrarUltimo(LISTA L){
         return NULL;
         break;
     default:
-        LISTA previo = L, ultimo=L->siguiente;
         while (ultimo->siguiente!=NULL)
         {
             previo = ultimo;
