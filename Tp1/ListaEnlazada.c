@@ -204,16 +204,20 @@ LISTA borrarUltimo(LISTA L){
 // // // // 3
 //dretorne verdadero si los contenidos de los nodos de las listas son iguales.
 int iguales(LISTA A, LISTA B){
-    if(longitud(A) == longitud(B) && longitud(A)>0){
-        do{
-            if (primerElemento(A)!= primerElemento(B)){
+    if(longitud(A) == longitud(B) && longitud(A)>0)
+    {
+        do
+        {
+            if (primerElemento(A)!= primerElemento(B))
+            {
                 return 0;
             }
             A = borrar(A);
             B = borrar(B); 
         } while (!esListaVacia(A));
         return 1;
-    }else{
+    }else
+    {
         return 0;
     }
     
