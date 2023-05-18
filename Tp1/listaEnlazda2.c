@@ -15,14 +15,76 @@ int esListaVacia(LISTA L); //booleana, determina si la lista está vacía.
 void mostrar(LISTA L); //muestra por pantalla el contenido de los nodos de la lista.
 int primerElemento(LISTA L); //retorna el contenido del primer elemento de la lista.
 void insertar(LISTA * L, int valor ); //inserta un nodo al comienzo de la lista.
-void borrar(LISTA * L); //borra el nodo del comienzo de la lista.
+void borrar(LISTA *L); //borra el nodo del comienzo de la lista.
 int longitud(LISTA L); //cuenta la cantidad de nodos que tiene una lista.
 int pertenece(LISTA L, int buscado); //booleana, determina si un dato pertenece a la lista.
 void borrarUltimo(LISTA * L); //borra el nodo del final de la lista.
-int iguales(LISTA * L);
+int iguales(LISTA * A, LISTA * B);
 
 
 void main(){
+    int valor;
+    LISTA X, Y;
+    crearLista(&X);
+    crearLista(&Y);
+    printf("\nLa lista X esta vacia?: %d - La lista Y esta vacia?: %d ", esListaVacia(X), esListaVacia(Y));
+    printf("\nMostrar: ");
+    mostrar(X);
+    printf("\n---");
+    mostrar(Y);
+    printf("\nPrimer elemento X: %d - Primer elemento Y: %d", primerElemento(X), primerElemento(Y));
+    printf("\nLongitud X: %d - Longitud Y: %d,", longitud(X), longitud(Y));
+    printf("\nBorrar ultimo X: ");
+    borrarUltimo(&X);
+    printf("\nIguales X, Y: %d",iguales(&X, &Y));
+    printf("\nInserte un num en X ");
+    scanf("%d", &valor);    
+    insertar(&X, valor);
+    printf("\nInserte un num en ambos ");
+    scanf("%d", &valor);    
+    insertar(&X, valor);
+    insertar(&Y, valor);
+    printf("\nInserte un num en Y ");
+    scanf("%d", &valor);    
+    insertar(&Y, valor);
+    printf("\nMostrar: ");
+    mostrar(X);
+    printf("\n---");
+    mostrar(Y);
+    printf("\nBusque un num en ambos: ");
+    scanf("%d", &valor);    
+    printf("\nPertenece %d?  a X: %d - a Y: %d,",valor, pertenece(X, valor), pertenece(Y, valor));
+    printf("\nBusque un num en ambos: ");
+    scanf("%d", &valor);    
+    printf("\nPertenece %d?  a X: %d - a Y: %d,",valor, pertenece(X, valor), pertenece(Y, valor));
+    printf("\nLongitud X: %d - Longitud Y: %d,", longitud(X), longitud(Y));
+    printf("\nBorrar Y: ");
+    borrar(&Y);
+    printf("\nLongitud X: %d - Longitud Y: %d,", longitud(X), longitud(Y));
+    printf("\nMostrar: ");
+    mostrar(X);
+    printf("\n---");
+    mostrar(Y);
+    printf("\nBorrar ultimo X: ");
+    borrarUltimo(&X);
+    printf("\nLongitud X: %d - Longitud Y: %d,", longitud(X), longitud(Y));
+    printf("\nMostrar: ");
+    mostrar(X);
+    printf("\n---");
+    mostrar(Y);
+    printf("\nLa lista X esta vacia?: %d - La lista Y esta vacia?: %d ", esListaVacia(X), esListaVacia(Y));
+    printf("\nPrimer elemento X: %d - Primer elemento Y: %d", primerElemento(X), primerElemento(Y));
+    printf("\nIguales: %d", iguales(&X, &Y));
+    printf("\nMostrar: ");
+    mostrar(X);
+    printf("\n---");
+    mostrar(Y);
+    printf("\nInserte un num en Y ");
+    scanf("%d", &valor);    
+    insertar(&Y, valor);
+    printf("\nIguales: %d", iguales(&X, &Y));
+
+
 
 
 }
@@ -43,11 +105,12 @@ void mostrar(LISTA L)
         printf("\n%d", L->dato);
         L = L->siguiente;
     }else{
-        printf("\nLa lista esta vacia. ");
+        printf("\nLa lista esta vacia");
     }
     while (L)
     {
         printf(", %d", L->dato);
+        L = L->siguiente;
     }
     printf(".\n");
 }
@@ -70,7 +133,8 @@ void insertar(LISTA * L, int valor )
 void borrar(LISTA * L)
 {
     Nodo * aux = *L;
-    if(aux){
+    if(aux)
+    {
         *L = (*L)->siguiente;
         free(aux);
     }
@@ -91,16 +155,30 @@ int pertenece(LISTA L, int buscado)
     {
         L = L->siguiente;
     }
-    if (L)
+    return L != NULL;
+}
+void borrarUltimo(LISTA * L)
+{
+    Nodo * previo = *L, * actual = *L; 
+    while (actual && actual->siguiente)
     {
-        return L->dato == buscado   
+        previo = actual;
+        actual = actual->siguiente;
+    }
+    if (previo == actual)
+    {
+        *L = NULL;
     }else{
-        return 0;
+        previo->siguiente = actual->siguiente;
+        free(actual);
     }
 }
-void borrarUltimo(LISTA * L){
-
-}
-int iguales(LISTA * L){
-
+int iguales(LISTA * A, LISTA * B)
+{
+    while (!esListaVacia(*A) && !esListaVacia(*B) && (primerElemento(*A) == primerElemento(*B)))
+    {
+        borrar(A);
+        borrar(B);
+    }
+    return esListaVacia(*A) && esListaVacia(*B);
 }
